@@ -143,3 +143,11 @@
 /Users/timothyatoyo/Desktop/EcommerseBlazor/bin/Debug/net8.0/runtimes/unix/lib/net8.0/Microsoft.Data.SqlClient.dll
 /Users/timothyatoyo/Desktop/EcommerseBlazor/bin/Debug/net8.0/runtimes/win/lib/net8.0/Microsoft.Data.SqlClient.dll
 /Users/timothyatoyo/Desktop/EcommerseBlazor/bin/Debug/net8.0/runtimes/win/lib/net8.0/System.Runtime.Caching.dll
+/Users/timothyatoyo/Desktop/EcommerseBlazor/obj/Debug/net8.0/EcommerseBlazor.sourcelink.json
+/Users/timothyatoyo/Desktop/EcommerseBlazor/bin/Debug/net8.0/Microsoft.OpenApi.dll
+/Users/timothyatoyo/Desktop/EcommerseBlazor/bin/Debug/net8.0/Swashbuckle.AspNetCore.Swagger.dll
+/Users/timothyatoyo/Desktop/EcommerseBlazor/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerGen.dll
+/Users/timothyatoyo/Desktop/EcommerseBlazor/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerUI.dll
+/Users/timothyatoyo/Desktop/EcommerseBlazor/obj/Debug/net8.0/EcommerseBlazor.MvcApplicationPartsAssemblyInfo.cs
+/Users/timothyatoyo/Desktop/EcommerseBlazor/bin/Debug/net8.0/package-lock.json
+/Users/timothyatoyo/Desktop/EcommerseBlazor/bin/Debug/net8.0/package.json

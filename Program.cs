@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using EcommerseBlazor.Components;
 using EcommerseBlazor.Components.Account;
 using EcommerseBlazor.Data;
+using EcommerseBlazor.Services;
+using EcommerseBlazor.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,12 +18,18 @@ builder.Services.AddScoped<IdentityUserAccessor>();
 builder.Services.AddScoped<IdentityRedirectManager>();
 builder.Services.AddScoped<AuthenticationStateProvider, IdentityRevalidatingAuthenticationStateProvider>();
 
+// registering Services 
+builder.Services.AddScoped<IBeatService, BeatService>();
+
+
 builder.Services.AddAuthentication(options =>
     {
         options.DefaultScheme = IdentityConstants.ApplicationScheme;
         options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
     })
     .AddIdentityCookies();
+    builder.Services.AddScoped<IBeatService, BeatService>();
+
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -32,6 +40,11 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddSignInManager()
     .AddDefaultTokenProviders();
+
+builder.Services.AddDbContext<BeatStoreContext>(options => 
+options.UseSqlServer(connectionString));
+builder.Services.AddControllers();
+
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 

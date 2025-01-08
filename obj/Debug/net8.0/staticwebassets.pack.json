@@ -17,6 +17,14 @@
       "PackagePath": "staticwebassets/bootstrap/bootstrap.min.css.map"
     },
     {
+      "Id": "/Users/timothyatoyo/Desktop/EcommerseBlazor/wwwroot/css/app.css",
+      "PackagePath": "staticwebassets/css/app.css"
+    },
+    {
+      "Id": "/Users/timothyatoyo/Desktop/EcommerseBlazor/wwwroot/css/app.min.css",
+      "PackagePath": "staticwebassets/css/app.min.css"
+    },
+    {
       "Id": "/Users/timothyatoyo/Desktop/EcommerseBlazor/wwwroot/favicon.png",
       "PackagePath": "staticwebassets/favicon.png"
     },

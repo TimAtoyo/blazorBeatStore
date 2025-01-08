@@ -7,7 +7,7 @@ public partial class Beat
 {
     public int BeatId { get; set; }
 
-    public string Title { get; set; } = null!;
+    public string? Title { get; set; }
 
     public string? Description { get; set; }
 
@@ -15,21 +15,21 @@ public partial class Beat
 
     public decimal Price { get; set; }
 
-    public string FilePath { get; set; } = null!;
+    public string? FilePath { get; set; }
 
     public string? CoverImagePath { get; set; }
 
-    public int UploadedBy { get; set; }
+    public string? UploadedBy { get; set; }
 
-    public DateTime? UploadDate { get; set; }
+    public DateTime UploadDate { get; set; }
 
-    public int? GenreId { get; set; }
+    public int GenreId { get; set; }
 
-    public bool? IsDeleted { get; set; }
+    public bool IsDeleted { get; set; }
 
     public virtual Genre? GenreNavigation { get; set; }
 
-    public virtual ICollection<Purchase> Purchases { get; set; } = new List<Purchase>();
+    public virtual ICollection<Purchase>? Purchases { get; set; } 
 
-    public virtual User UploadedByNavigation { get; set; } = null!;
+    public virtual User? UploadedByNavigation { get; set; }
 }
