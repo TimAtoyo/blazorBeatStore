@@ -1,4 +1,5 @@
-using EcommerseBlazor.Models;
+// using EcommerseBlazor.Models;
+using EcommerseBlazor.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace EcommerseBlazor.Services;
@@ -19,19 +20,25 @@ public class BeatService : IBeatService
         {
             Title = beat.Title,
             Description = beat.Description,
-            Genre = beat.Genre,
+            Genre = beat.Genre,            
             Price = beat.Price,
             FilePath = beat.FilePath,
             CoverImagePath = beat.CoverImagePath,
             UploadedBy = beat.UploadedBy,
             UploadDate = DateTime.Now,
-            GenreId = beat.GenreId,
-            Purchases = beat.Purchases,
-            UploadedByNavigation = beat.UploadedByNavigation,
+            GenreID = beat.GenreID
         };
 
-        await _context.AddAsync(newBeat);
-
+        try
+        {
+            await _context.AddAsync(newBeat);
+            await _context.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
+            throw;
+        }
         return newBeat;
     }
 
@@ -44,6 +51,7 @@ public class BeatService : IBeatService
     {
         IEnumerable<Beat> beats = await _context.Beats.ToListAsync();
         return beats;
+        // throw new NotImplementedException();
     }
 
     public Task<bool> UploadBeat(int id)

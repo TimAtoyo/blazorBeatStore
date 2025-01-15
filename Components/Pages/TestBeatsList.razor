@@ -1,4 +1,4 @@
-@page "/beats"
+@* @page "/beats"
 @inject IBeatService BeatService
 
 <title>List Of Beats</title>
@@ -30,4 +30,4 @@ else if (beats.Count() == 0)
     {
         beats = await BeatService.GetBeatListAsync();
     }
-}
+} *@

@@ -5,7 +5,7 @@ namespace EcommerseBlazor.Models;
 
 public partial class Beat
 {
-    public int BeatId { get; set; }
+    public int BeatID { get; set; }
 
     public string? Title { get; set; }
 
@@ -23,13 +23,8 @@ public partial class Beat
 
     public DateTime UploadDate { get; set; }
 
-    public int GenreId { get; set; }
+    public int GenreID { get; set; }
 
     public bool IsDeleted { get; set; }
 
-    public virtual Genre? GenreNavigation { get; set; }
-
-    public virtual ICollection<Purchase>? Purchases { get; set; } 
-
-    public virtual User? UploadedByNavigation { get; set; }
 }

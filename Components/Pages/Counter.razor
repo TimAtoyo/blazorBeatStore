@@ -1,6 +1,6 @@
-﻿@page "/counter"
+﻿@* @page "/counter"
 @rendermode InteractiveServer
-@inject IBeatService BeatService
+@inject IBeatService BeatService *@
 
 <h1>Create B</h1>
 
@@ -63,7 +63,7 @@
     <button type="submit" class="btn btn-primary">Submit</button>
 </EditForm> *@
 
-@code {
+@* @code {
     private Beat newBeat = new Beat
     {
         UploadDate = DateTime.Now,
@@ -75,4 +75,4 @@
         await BeatService.CreateBeatAsync(newBeat);
         Console.WriteLine("Beat created successfully!");
     }
-}
+} *@

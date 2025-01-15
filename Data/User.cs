@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace EcommerseBlazor.Models;
+namespace EcommerseBlazor.Data;
 
 public partial class User
 {
@@ -18,4 +18,10 @@ public partial class User
     public DateTime? CreatedAt { get; set; }
 
     public bool? IsDeleted { get; set; }
+
+    public virtual ICollection<AdminLog> AdminLogs { get; set; } = new List<AdminLog>();
+
+    public virtual ICollection<Beat> Beats { get; set; } = new List<Beat>();
+
+    public virtual ICollection<Purchase> Purchases { get; set; } = new List<Purchase>();
 }

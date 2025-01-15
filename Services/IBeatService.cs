@@ -1,5 +1,5 @@
-using EcommerseBlazor.Models;
-
+// using EcommerseBlazor.Models;
+using EcommerseBlazor.Data;
 namespace EcommerseBlazor.Services;
 
 public interface IBeatService 

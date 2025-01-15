@@ -5,9 +5,7 @@ namespace EcommerseBlazor.Models;
 
 public partial class Genre
 {
-    public int GenreId { get; set; }
+    public int GenreID { get; set; }
 
-    public string GenreName { get; set; } = null!;
-
-    public virtual ICollection<Beat> Beats { get; set; } = new List<Beat>();
+    public string? GenreName { get; set; }
 }
