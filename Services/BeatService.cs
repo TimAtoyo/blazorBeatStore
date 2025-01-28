@@ -1,7 +1,7 @@
 using EcommerseBlazor.Services;
+using EcommerseBlazor.Models; 
+using EcommerseBlazor.Data; 
 using Microsoft.EntityFrameworkCore;
-using EcommerseBlazor.Models;  // Make sure to include this for async LINQ operations.
-using EcommerseBlazor.Data;  // Make sure to include this for async LINQ operations.
 
 namespace EcommerseBlazor.Services;
 
@@ -34,7 +34,6 @@ namespace EcommerseBlazor.Services;
             await _context.SaveChangesAsync(); 
         }
 
-        // Update an existing beat asynchronously
         public async Task UpdateBeatAsync(Beat beat)
         {
             _context.Beats.Update(beat);  

@@ -1,0 +1,52 @@
+@page "/create-beat"
+@inject NavigationManager Navigation
+@inject IBeatService BeatService
+
+<h3>Create a New Beat</h3>
+
+<EditForm Model="newBeat" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="Name">Name</label>
+        <InputText id="Name" class="form-control" @bind-Value="newBeat.Title" />
+        <ValidationMessage For="() => newBeat.Title" />
+    </div>
+
+    <div class="form-group">
+        <label for="Genre">Genre</label>
+        <InputText id="Genre" class="form-control" @bind-Value="newBeat.Genre" />
+        <ValidationMessage For="() => newBeat.Genre" />
+    </div>
+
+    <div class="form-group">
+        <label for="Price">Price</label>
+        <InputNumber id="Price" class="form-control" @bind-Value="newBeat.Price" />
+        <ValidationMessage For="() => newBeat.Price" />
+    </div>
+
+    <div class="form-group">
+        <label for="Description">Description</label>
+        <InputText id="Description" class="form-control" @bind-Value="newBeat.Description" />
+        <ValidationMessage For="() => newBeat.Description" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create Beat</button>
+</EditForm>
+
+@code {
+    private Beat newBeat = new Beat();
+
+    private async Task HandleValidSubmit()
+    {
+        // Save the new beat using your service
+        await BeatService.CreateBeatAsync(newBeat); 
+        // Clear the form after submission
+        newBeat = new Beat(); 
+        
+        // navigate back to a beats page 
+        Navigation.NavigateTo("/beats", true);
+
+    }
+}

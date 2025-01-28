@@ -1,1 +1,16 @@
 @page "/Beats"
+
+@inject IBeatService BeatService
+
+<PageTitle>All Beats</PageTitle>
+
+
+
+
+
+@code {
+    private IEnumerable<Beat>? beats;
+     protected override async void OnInitialized() {
+        beats = await BeatService.GetBeatsAsync();
+    }
+}    
