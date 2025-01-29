@@ -166,3 +166,5 @@
 /Users/timothyatoyo/Desktop/EcommerseBlazor/bin/Debug/net8.0/runtimes/win/lib/net6.0/System.Windows.Extensions.dll
 /Users/timothyatoyo/Desktop/EcommerseBlazor/obj/Debug/net8.0/EcommerseBlazor.csproj.AssemblyReference.cache
 /Users/timothyatoyo/Desktop/EcommerseBlazor/obj/Debug/net8.0/Ecommers.596B82BE.Up2Date
+/Users/timothyatoyo/Desktop/EcommerseBlazor/bin/Debug/net8.0/package.json
+/Users/timothyatoyo/Desktop/EcommerseBlazor/bin/Debug/net8.0/package-lock.json

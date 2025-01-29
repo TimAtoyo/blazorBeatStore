@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "JX/Urh30Fvjix4DJDQyem6LDTjBW6sVdft03B+cqYrE=",
+  "Hash": "65B/tgpuQDdro8lrbhMop8gtPj5XkwYHyaecaRiTBwE=",
   "Source": "EcommerseBlazor",
   "BasePath": "_content/EcommerseBlazor",
   "Mode": "Default",
@@ -129,6 +129,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/favicon.png"
+    },
+    {
+      "Identity": "/Users/timothyatoyo/Desktop/EcommerseBlazor/wwwroot/output.css",
+      "SourceId": "EcommerseBlazor",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/timothyatoyo/Desktop/EcommerseBlazor/wwwroot/",
+      "BasePath": "_content/EcommerseBlazor",
+      "RelativePath": "output.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/output.css"
     }
   ]
 }

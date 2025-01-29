@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EcommerseBlazor")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+126a45c81e76568fdaaf5cc70c1b64295039aa94")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7ae2afaee600abf989f384cd3aeeaba136e968e8")]
 [assembly: System.Reflection.AssemblyProductAttribute("EcommerseBlazor")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EcommerseBlazor")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,4 +1,3 @@
-using EcommerseBlazor.Models;
 namespace EcommerseBlazor.Services;
 
 public interface IBeatService

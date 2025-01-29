@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using EcommerseBlazor.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace EcommerseBlazor.Data;
@@ -15,7 +14,6 @@ public partial class BeatStoreDbContext : DbContext
         : base(options)
     {
     }
-
     public virtual DbSet<AdminLog> AdminLogs { get; set; }
 
     public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
@@ -133,6 +131,7 @@ public partial class BeatStoreDbContext : DbContext
             entity.ToTable(tb => tb.HasTrigger("TRG_Delete_Beat_Purchases"));
 
             entity.Property(e => e.BeatId).HasColumnName("BeatID");
+            entity.Property(e => e.Bpm).HasColumnName("BPM");
             entity.Property(e => e.CoverImagePath).HasMaxLength(255);
             entity.Property(e => e.FilePath).HasMaxLength(255);
             entity.Property(e => e.Genre).HasMaxLength(50);

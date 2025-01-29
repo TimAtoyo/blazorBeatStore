@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace EcommerseBlazor.Models;
+namespace EcommerseBlazor;
 
 public partial class Beat
 {
@@ -26,6 +26,8 @@ public partial class Beat
     public int? GenreId { get; set; }
 
     public bool? IsDeleted { get; set; }
+
+    public int? Bpm { get; set; }
 
     public virtual Genre? GenreNavigation { get; set; }
 

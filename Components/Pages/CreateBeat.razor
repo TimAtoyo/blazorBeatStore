@@ -1,35 +1,46 @@
 @page "/create-beat"
+@using Microsoft.Extensions.Logging
 @inject NavigationManager Navigation
 @inject IBeatService BeatService
+@inject ILogger<CreateBeat> Logger
+@inject RootPathService RootPathService
+
 
 <h3>Create a New Beat</h3>
 
-<EditForm Model="newBeat" OnValidSubmit="HandleValidSubmit">
+<EditForm class="space-y-9" Model="newBeat" OnValidSubmit="HandleValidSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
     <div class="form-group">
-        <label for="Name">Name</label>
-        <InputText id="Name" class="form-control" @bind-Value="newBeat.Title" />
+        <label class="mb-2" for="Title">Title</label>
+        <InputText id="Title" class="form-control" @bind-Value="newBeat.Title" />
         <ValidationMessage For="() => newBeat.Title" />
     </div>
 
     <div class="form-group">
-        <label for="Genre">Genre</label>
+        <label class="mb-2" for="Description">Description</label>
+        <InputText id="Description" class="form-control" @bind-Value="newBeat.Description" />
+        <ValidationMessage For="() => newBeat.Description" />
+    </div>
+
+    <div class="form-group">
+        <label class="mb-2" for="Genre">Genre</label>
         <InputText id="Genre" class="form-control" @bind-Value="newBeat.Genre" />
         <ValidationMessage For="() => newBeat.Genre" />
     </div>
 
     <div class="form-group">
-        <label for="Price">Price</label>
+        <label class="mb-2" for="Price">Price</label>
         <InputNumber id="Price" class="form-control" @bind-Value="newBeat.Price" />
         <ValidationMessage For="() => newBeat.Price" />
     </div>
 
     <div class="form-group">
-        <label for="Description">Description</label>
-        <InputText id="Description" class="form-control" @bind-Value="newBeat.Description" />
-        <ValidationMessage For="() => newBeat.Description" />
+        <label class="mb-2" for="FilePath">File Path</label>
+        <InputFile OnChange="LoadFiles" multiple />
+        <InputText id="FilePath" class="form-control" @bind-Value="newBeat.FilePath" />
+        <ValidationMessage For="() => newBeat.FilePath" />
     </div>
 
     <button type="submit" class="btn btn-primary">Create Beat</button>
@@ -37,6 +48,13 @@
 
 @code {
     private Beat newBeat = new Beat();
+    private List<IBrowserFile> loadedFiles = [];
+    private long maxFileSize = 1024 * 15;
+    private int maxAllowedFiles = 3;
+    private bool isLoading;
+
+    private string? RootPath;
+    private string? EnvironmentName;
 
     private async Task HandleValidSubmit()
     {
@@ -44,9 +62,48 @@
         await BeatService.CreateBeatAsync(newBeat); 
         // Clear the form after submission
         newBeat = new Beat(); 
+
+        RootPath = RootPathService.GetRootPath();
+        EnvironmentName = RootPathService.GetEnvironmentName();
         
         // navigate back to a beats page 
         Navigation.NavigateTo("/beats", true);
 
     }
+
+
+
+    private async Task LoadFiles(InputFileChangeEventArgs e)
+    {
+        isLoading = true;
+        loadedFiles.Clear();
+
+        foreach (var file in e.GetMultipleFiles(maxAllowedFiles))
+        {
+            try
+            {
+                var trustedFileName = Path.GetRandomFileName();
+                var path = Path.Combine(RootPath!,
+                EnvironmentName!, "unsafe_uploads",
+                trustedFileName);
+
+                await using FileStream fs = new(path, FileMode.Create);
+                await file.OpenReadStream(maxFileSize).CopyToAsync(fs);
+
+                loadedFiles.Add(file);
+
+                Logger.LogInformation(
+                "Unsafe Filename: {UnsafeFilename} File saved: {Filename}",
+                file.Name, trustedFileName);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError("File: {Filename} Error: {Error}",
+                file.Name, ex.Message);
+            }
+        }
+
+        isLoading = false;
+    }
+
 }

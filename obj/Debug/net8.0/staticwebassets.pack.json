@@ -21,6 +21,10 @@
       "PackagePath": "staticwebassets/favicon.png"
     },
     {
+      "Id": "/Users/timothyatoyo/Desktop/EcommerseBlazor/wwwroot/output.css",
+      "PackagePath": "staticwebassets/output.css"
+    },
+    {
       "Id": "obj/Debug/net8.0/staticwebassets/msbuild.EcommerseBlazor.Microsoft.AspNetCore.StaticWebAssets.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
     },
