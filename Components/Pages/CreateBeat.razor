@@ -4,47 +4,103 @@
 @inject IBeatService BeatService
 @inject ILogger<CreateBeat> Logger
 @inject RootPathService RootPathService
-
+@rendermode InteractiveServer
 
 <h3>Create a New Beat</h3>
 
-<EditForm class="space-y-9" Model="newBeat" OnValidSubmit="HandleValidSubmit">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
+<div class="container my-10">
+    <div class="row">
+        <EditForm class="space-y-9" Model="newBeat" OnValidSubmit="HandleValidSubmit">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <div class="grid grid-cols-2 gap-5">
 
-    <div class="form-group">
-        <label class="mb-2" for="Title">Title</label>
-        <InputText id="Title" class="form-control" @bind-Value="newBeat.Title" />
-        <ValidationMessage For="() => newBeat.Title" />
+                <div class="form-group">
+                    <label class="mb-2" for="Title">Title</label>
+                    <InputText id="Title" class="form-control" @bind-Value="newBeat.Title" />
+                    <ValidationMessage For="() => newBeat.Title" />
+                </div>
+
+                <div class="form-group">
+                    <label class="mb-2" for="Description">Description</label>
+                    <InputText id="Description" class="form-control" @bind-Value="newBeat.Description" />
+                    <ValidationMessage For="() => newBeat.Description" />
+                </div>
+
+                <div class="form-group">
+                    <label class="mb-2" for="Genre">Genre</label>
+                    <InputText id="Genre" class="form-control" @bind-Value="newBeat.Genre" />
+                    <ValidationMessage For="() => newBeat.Genre" />
+                </div>
+
+                <div class="form-group">
+                    <label class="mb-2" for="Price">Price</label>
+                    <InputNumber id="Price" class="form-control" @bind-Value="newBeat.Price" />
+                    <ValidationMessage For="() => newBeat.Price" />
+                </div>
+
+                <div class="form-group">
+                    <label class="mb-2" for="FilePath">Upload Beat</label>
+                    <InputFile OnChange="LoadFiles" multiple />
+                    <InputText id="FilePath" class="form-control" @bind-Value="newBeat.FilePath" />
+                    <ValidationMessage For="() => newBeat.FilePath" />
+                </div>
+
+                <div class="form-group">
+                    <label class="mb-2" for="CoverImagePath">Cover Image Path</label>
+                    <InputFile OnChange="LoadFiles" multiple />
+                    <InputText id="CoverImagePath" class="form-control" @bind-Value="newBeat.CoverImagePath" />
+                    <ValidationMessage For="() => newBeat.CoverImagePath" />
+                </div>
+                @* <div class="form-group">
+                <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Drag and drop files to upload
+                </RadzenText>
+                <RadzenUpload id="ddUpload" @ref="upload" ChooseText="Drag and drop here or click to choose files"
+                    Auto="false" Multiple="true" Url="upload/multiple"
+                    InputAttributes="@(new Dictionary<string,object>(){ { "aria-label", "select file" }})"
+                    Progress=@(args => OnProgress(args, "Drag and drop files to upload")) Style="width: 100%" />
+                <RadzenButton Text="Upload" Click=@(args => upload.Upload()) class="rz-mt-4" />
+                </div> *@
+                <div class="form-group">
+                    <label class="mb-2" for="UploadedBy">UploadedBy</label>
+                    <InputNumber id="UploadedBy" class="form-control" @bind-Value="newBeat.UploadedBy" />
+                    <ValidationMessage For="() => newBeat.UploadedBy" />
+                </div>
+
+                <div class="form-group">
+                    <label class="mb-2" for="GenreId">Genre Id</label>
+                    <InputNumber id="GenreId" class="form-control" @bind-Value="newBeat.GenreId" />
+                    <ValidationMessage For="() => newBeat.GenreId" />
+                </div>
+
+                <div class="form-group">
+                    <label class="mb-2" for="Bpm">Bpm</label>
+                    <InputNumber id="Bpm" class="form-control" @bind-Value="newBeat.Bpm" />
+                    <ValidationMessage For="() => newBeat.Bpm" />
+                </div>
+
+
+            </div>
+            <button type="submit" class="btn btn-primary">Create Beat</button>
+        </EditForm>
     </div>
 
-    <div class="form-group">
-        <label class="mb-2" for="Description">Description</label>
-        <InputText id="Description" class="form-control" @bind-Value="newBeat.Description" />
-        <ValidationMessage For="() => newBeat.Description" />
-    </div>
+</div>
 
-    <div class="form-group">
-        <label class="mb-2" for="Genre">Genre</label>
-        <InputText id="Genre" class="form-control" @bind-Value="newBeat.Genre" />
-        <ValidationMessage For="() => newBeat.Genre" />
-    </div>
+<style>
+    #ddUpload {
+        left: 0;
+        --rz-upload-button-bar-background-color: transparent;
+        --rz-upload-button-bar-padding: 0;
+    }
 
-    <div class="form-group">
-        <label class="mb-2" for="Price">Price</label>
-        <InputNumber id="Price" class="form-control" @bind-Value="newBeat.Price" />
-        <ValidationMessage For="() => newBeat.Price" />
-    </div>
-
-    <div class="form-group">
-        <label class="mb-2" for="FilePath">File Path</label>
-        <InputFile OnChange="LoadFiles" multiple />
-        <InputText id="FilePath" class="form-control" @bind-Value="newBeat.FilePath" />
-        <ValidationMessage For="() => newBeat.FilePath" />
-    </div>
-
-    <button type="submit" class="btn btn-primary">Create Beat</button>
-</EditForm>
+    #ddUpload .rz-fileupload-buttonbar .rz-fileupload-choose {
+        width: 100%;
+        text-align: center;
+        font-size: 16px;
+        padding: 100px 0;
+    }
+</style>
 
 @code {
     private Beat newBeat = new Beat();
@@ -52,21 +108,23 @@
     private long maxFileSize = 1024 * 15;
     private int maxAllowedFiles = 3;
     private bool isLoading;
-
     private string? RootPath;
     private string? EnvironmentName;
+
+    @* Radzen Upload *@
+    RadzenUpload? upload;
 
     private async Task HandleValidSubmit()
     {
         // Save the new beat using your service
-        await BeatService.CreateBeatAsync(newBeat); 
+        await BeatService.CreateBeatAsync(newBeat);
         // Clear the form after submission
-        newBeat = new Beat(); 
+        newBeat = new Beat();
 
         RootPath = RootPathService.GetRootPath();
         EnvironmentName = RootPathService.GetEnvironmentName();
-        
-        // navigate back to a beats page 
+
+        // navigate back to a beats page
         Navigation.NavigateTo("/beats", true);
 
     }
@@ -104,6 +162,19 @@
         }
 
         isLoading = false;
+    }
+
+    void OnProgress(UploadProgressArgs args, string name)
+    {
+        Console.WriteLine($"{args.Progress}% '{name}' / {args.Loaded} of {args.Total} bytes.");
+
+        if (args.Progress == 100)
+        {
+            foreach (var file in args.Files)
+            {
+                Console.WriteLine($"Uploaded: {file.Name} / {file.Size} bytes");
+            }
+        }
     }
 
 }

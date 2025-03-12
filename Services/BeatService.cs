@@ -1,53 +1,77 @@
+using EcommerseBlazor.Components.Pages;
+using EcommerseBlazor.Data;
+using EcommerseBlazor.Models;
 using EcommerseBlazor.Services;
-using EcommerseBlazor.Models; 
-using EcommerseBlazor.Data; 
 using Microsoft.EntityFrameworkCore;
 
 namespace EcommerseBlazor.Services;
 
-    public class BeatService : IBeatService
+public class BeatService : IBeatService
+{
+    private readonly BeatStoreDbContext _context;
+
+
+    public BeatService(BeatStoreDbContext context)
     {
-        private readonly BeatStoreDbContext _context;  
+        _context = context;
+    }
 
 
-        public BeatService(BeatStoreDbContext context)
-        {
-            _context = context;  
+    public async Task<List<Beat>> GetBeatsAsync()
+    {
+        // try
+        // {
+            return await _context.Beats.ToListAsync();
+        // }
+        // catch (TaskCanceledException )
+        // {
+        //     Console.WriteLine("Database operation was canceled.");
+        //     return new List<Beat>();
+        // }
+        // catch (Exception ex)
+        // {
+        //     Console.WriteLine($"Error fetching beats: {ex.Message}");
+        //     return new List<Beat>();
+        // }
+    }
+
+
+    public async Task<Beat> GetBeatByIdAsync(int id)
+    {
+         var beat = await _context.Beats.FindAsync(id);
+         if(beat is not null){
+            return beat;
         }
 
-        
-        public async Task<List<Beat>> GetBeatsAsync()
-        {
-            return await _context.Beats.ToListAsync();  
-        }
+        return new Beat();
+    }
 
-        
-        public async Task<Beat> GetBeatByIdAsync(int id)
-        {
-            return await _context.Beats.FindAsync(id);  
-        }
 
-        
-        public async Task CreateBeatAsync(Beat beat)
-        {
-            _context.Beats.Add(beat);  
-            await _context.SaveChangesAsync(); 
-        }
+    public async Task CreateBeatAsync(Beat beat)
+    {
+        try {
 
-        public async Task UpdateBeatAsync(Beat beat)
-        {
-            _context.Beats.Update(beat);  
-            await _context.SaveChangesAsync();  
+        _context.Beats.Add(beat);
+        await _context.SaveChangesAsync();
+        }catch(Exception ex) {
+            Console.WriteLine(ex);
         }
+    }
 
-        
-        public async Task DeleteBeatAsync(int id)
+    public async Task UpdateBeatAsync(Beat beat)
+    {
+        _context.Beats.Update(beat);
+        await _context.SaveChangesAsync();
+    }
+
+
+    public async Task DeleteBeatAsync(int id)
+    {
+        var beat = await _context.Beats.FindAsync(id);
+        if (beat != null)
         {
-            var beat = await _context.Beats.FindAsync(id);  
-            if (beat != null)
-            {
-                _context.Beats.Remove(beat); 
-                await _context.SaveChangesAsync();  
-            }
+            _context.Beats.Remove(beat);
+            await _context.SaveChangesAsync();
         }
+    }
 }

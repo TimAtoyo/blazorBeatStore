@@ -1,0 +1,76 @@
+@page "/delete/{id:int}"
+@inject IBeatService bs
+@rendermode InteractiveServer
+@inject NavigationManager NM
+    <div class="row">
+        <EditForm class="space-y-9" Model="@beat" FormName="Delete" OnValidSubmit="HandleDelete">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <div class="grid grid-cols-2 gap-5">
+
+                <div class="form-group">
+                    <label class="mb-2" for="Title">Title</label>
+                    <InputText id="Title" class="form-control" @bind-Value="beat.Title" />
+                    <ValidationMessage For="() => beat.Title" />
+                </div>
+
+                <div class="form-group">
+                    <label class="mb-2" for="Description">Description</label>
+                    <InputText id="Description" class="form-control" @bind-Value="beat.Description" />
+                    <ValidationMessage For="() => beat.Description" />
+                </div>
+
+                <div class="form-group">
+                    <label class="mb-2" for="Genre">Genre</label>
+                    <InputText id="Genre" class="form-control" @bind-Value="beat.Genre" />
+                    <ValidationMessage For="() => beat.Genre" />
+                </div>
+
+                <div class="form-group">
+                    <label class="mb-2" for="Price">Price</label>
+                    <InputNumber id="Price" class="form-control" @bind-Value="beat.Price" />
+                    <ValidationMessage For="() => beat.Price" />
+                </div>
+
+                <div class="form-group">
+                    <label class="mb-2" for="UploadedBy">UploadedBy</label>
+                    <InputNumber id="UploadedBy" class="form-control" @bind-Value="beat.UploadedBy" />
+                    <ValidationMessage For="() => beat.UploadedBy" />
+                </div>
+
+                <div class="form-group">
+                    <label class="mb-2" for="GenreId">Genre Id</label>
+                    <InputNumber id="GenreId" class="form-control" @bind-Value="beat.GenreId" />
+                    <ValidationMessage For="() => beat.GenreId" />
+                </div>
+
+                <div class="form-group">
+                    <label class="mb-2" for="Bpm">Bpm</label>
+                    <InputNumber id="Bpm" class="form-control" @bind-Value="beat.Bpm" />
+                    <ValidationMessage For="() => beat.Bpm" />
+                </div>
+
+
+            </div>
+            <button type="submit" class="btn btn-primary">Create Beat</button>
+        </EditForm>
+    </div>
+
+@code {
+[Parameter]
+public int id {get; set;}
+
+private Beat beat = new();
+
+
+protected override async Task OnInitializedAsync()
+{
+  beat = await bs.GetBeatByIdAsync(id);
+}
+
+private async Task HandleDelete()
+{
+    await bs.DeleteBeatAsync(id);
+    NM.NavigateTo("/beats");
+}
+}

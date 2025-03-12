@@ -1,0 +1,62 @@
+@* @inject NavigationManager NavManager
+
+<div class="bg-gray-900 text-white p-4 rounded-lg shadow-lg w-full max-w-lg mx-auto">
+    <h2 class="text-xl font-bold">{{ CurrentBeat?.Title ?? "No Track Playing" }}</h2>
+
+    <audio @ref="audioElement" @onended="OnTrackEnd">
+        <source src="@CurrentBeat?.AudioUrl" type="audio/mpeg">
+        Your browser does not support the audio tag.
+    </audio>
+
+    <!-- Controls -->
+    <div class="flex items-center gap-4 mt-4">
+        <button @onclick="PlayPause" class="p-2 bg-blue-500 rounded">
+            @(IsPlaying ? "⏸ Pause" : "▶ Play")
+        </button>
+
+        <input type="range" min="0" max="@Duration" @bind="CurrentTime" class="w-full" />
+
+        <span>@FormatTime(CurrentTime) / @FormatTime(Duration)</span>
+    </div>
+
+    <!-- Volume & Loop -->
+    <div class="flex items-center gap-4 mt-4">
+        <input type="range" min="0" max="1" step="0.1" @bind="Volume" class="w-20" />
+        <label>🔊 Volume</label>
+
+        <button @onclick="ToggleLoop" class="p-2 bg-gray-700 rounded">
+            @(IsLooping ? "🔁 Loop ON" : "Loop OFF")
+        </button>
+    </div>
+</div>
+
+@code {
+    private ElementReference audioElement;
+    private bool IsPlaying = false;
+    private bool IsLooping = false;
+    private double CurrentTime;
+    private double Duration;
+    private double Volume = 1;
+
+    [Parameter] public Beat? CurrentBeat { get; set; }
+
+    private async Task PlayPause()
+    {
+        if (IsPlaying)
+            await audioElement.CallAsync("pause");
+        else
+            await audioElement.CallAsync("play");
+
+        IsPlaying = !IsPlaying;
+    }
+
+    private async Task ToggleLoop()
+    {
+        IsLooping = !IsLooping;
+        await audioElement.CallAsync("setAttribute", "loop", IsLooping ? "true" : "false");
+    }
+
+    private string FormatTime(double seconds) => TimeSpan.FromSeconds(seconds).ToString(@"mm\:ss");
+
+    private async Task OnTrackEnd() => IsPlaying = false;
+} *@

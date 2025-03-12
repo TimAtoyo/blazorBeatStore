@@ -3,24 +3,29 @@ using EcommerseBlazor.Components;
 using EcommerseBlazor.Data;
 using EcommerseBlazor.Services;
 using Microsoft.EntityFrameworkCore;
+using Radzen;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Register BeatStore DbContext
-builder.Services.AddDbContext<BeatStoreDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+// Register BeatStore DbContext with logging and retry on failure
+builder.Services.AddDbContextFactory<BeatStoreDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
 
 // Register Beat service
 builder.Services.AddScoped<IBeatService, BeatService>();
 // Register root path service
 builder.Services.AddScoped<RootPathService>();
 
-// Add logging to the container (this ensures ILogger is available)
+// Add logging to the container
 builder.Services.AddLogging(logging =>
 {
     logging.ClearProviders(); // Optional: clears other log providers if needed
-    logging.AddConsole();     // Add Console logging provider (you can add other providers as needed)
+    logging.AddConsole();     // Add Console logging provider
 });
+
+// Register Radzen Components
+builder.Services.AddRadzenComponents();
 
 // Add services to the container
 builder.Services.AddRazorComponents()

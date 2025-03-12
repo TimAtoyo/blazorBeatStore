@@ -1,0 +1,82 @@
+@page "/Update/{id:int}"
+@inject IBeatService bs
+@inject NavigationManager NM
+@rendermode InteractiveServer
+@if (beat is null)
+{
+ <h1>Something went wrong!</h1>
+}
+else{
+
+        <EditForm class="space-y-9" Model="@beat" FormName="update" OnValidSubmit="HandleValidSubmit">
+            <a href="/beats" class="btn btn-secondary">Back to All Beats</a>
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <div class="grid grid-cols-2 gap-5">
+
+                <div class="form-group">
+                    <label class="mb-2" for="Title">Title</label>
+                    <InputText id="Title" class="form-control" @bind-Value="beat.Title" />
+                    <ValidationMessage For="() => beat.Title" />
+                </div>
+
+                <div class="form-group">
+                    <label class="mb-2" for="Description">Description</label>
+                    <InputText id="Description" class="form-control" @bind-Value="beat.Description" />
+                    <ValidationMessage For="() => beat.Description" />
+                </div>
+
+                <div class="form-group">
+                    <label class="mb-2" for="Genre">Genre</label>
+                    <InputText id="Genre" class="form-control" @bind-Value="beat.Genre" />
+                    <ValidationMessage For="() => beat.Genre" />
+                </div>
+
+                <div class="form-group">
+                    <label class="mb-2" for="Price">Price</label>
+                    <InputNumber id="Price" class="form-control" @bind-Value="beat.Price" />
+                    <ValidationMessage For="() => beat.Price" />
+                </div>
+                <div class="form-group">
+                    <label class="mb-2" for="UploadedBy">UploadedBy</label>
+                    <InputNumber id="UploadedBy" class="form-control" @bind-Value="beat.UploadedBy" />
+                    <ValidationMessage For="() => beat.UploadedBy" />
+                </div>
+
+                <div class="form-group">
+                    <label class="mb-2" for="GenreId">Genre Id</label>
+                    <InputNumber id="GenreId" class="form-control" @bind-Value="beat.GenreId" />
+                    <ValidationMessage For="() => beat.GenreId" />
+                </div>
+
+                <div class="form-group">
+                    <label class="mb-2" for="Bpm">Bpm</label>
+                    <InputNumber id="Bpm" class="form-control" @bind-Value="beat.Bpm" />
+                    <ValidationMessage For="() => beat.Bpm" />
+                </div>
+
+
+            </div>
+            <div class="buttons flex justify-between">
+                <button type="submit" class="btn btn-primary">Save Beat</button>
+                
+            </div>
+        </EditForm>
+        }
+@code {
+    [Parameter]
+    public int id {get; set;}
+    
+    public Beat beat = new Beat();
+
+      protected override async Task OnInitializedAsync(){
+        beat = await bs.GetBeatByIdAsync(id);
+    }
+
+
+    public  async Task HandleValidSubmit()
+    {
+        await bs.UpdateBeatAsync(beat);
+         NM.NavigateTo("/beats");
+    }
+}
