@@ -5,7 +5,11 @@
 @inject ILogger<CreateBeat> Logger
 @inject RootPathService RootPathService
 @rendermode InteractiveServer
-
+@inject IWebHostEnvironment _webHostEnvironment
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Hosting;
 <h3>Create a New Beat</h3>
 
 <div class="container my-10">
@@ -52,15 +56,14 @@
                     <InputText id="CoverImagePath" class="form-control" @bind-Value="newBeat.CoverImagePath" />
                     <ValidationMessage For="() => newBeat.CoverImagePath" />
                 </div>
-                @* <div class="form-group">
-                <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Drag and drop files to upload
-                </RadzenText>
-                <RadzenUpload id="ddUpload" @ref="upload" ChooseText="Drag and drop here or click to choose files"
-                    Auto="false" Multiple="true" Url="upload/multiple"
-                    InputAttributes="@(new Dictionary<string,object>(){ { "aria-label", "select file" }})"
-                    Progress=@(args => OnProgress(args, "Drag and drop files to upload")) Style="width: 100%" />
-                <RadzenButton Text="Upload" Click=@(args => upload.Upload()) class="rz-mt-4" />
-                </div> *@
+                <p>
+                    <label>
+                        Upload up to @maxAllowedFiles of up to @maxFileSize bytes:
+                        <InputFile OnChange="LoadFiles" multiple />
+                    </label>
+                </p>
+
+
                 <div class="form-group">
                     <label class="mb-2" for="UploadedBy">UploadedBy</label>
                     <InputNumber id="UploadedBy" class="form-control" @bind-Value="newBeat.UploadedBy" />
@@ -107,12 +110,10 @@
     private List<IBrowserFile> loadedFiles = [];
     private long maxFileSize = 1024 * 15;
     private int maxAllowedFiles = 3;
-    private bool isLoading;
     private string? RootPath;
     private string? EnvironmentName;
 
-    @* Radzen Upload *@
-    RadzenUpload? upload;
+    private bool isLoading;
 
     private async Task HandleValidSubmit()
     {
@@ -130,51 +131,40 @@
     }
 
 
-
     private async Task LoadFiles(InputFileChangeEventArgs e)
     {
-        isLoading = true;
+        @* isLoading = true;
         loadedFiles.Clear();
+        
 
         foreach (var file in e.GetMultipleFiles(maxAllowedFiles))
         {
             try
             {
-                var trustedFileName = Path.GetRandomFileName();
-                var path = Path.Combine(RootPath!,
-                EnvironmentName!, "unsafe_uploads",
-                trustedFileName);
+        var trustedFileName = Path.GetRandomFileName();
+        var uploadPath = Path.Combine(
+            _webHostEnvironment.ContentRootPath,  // ✅ Corrected property
+            "wwwroot",  // Store inside wwwroot for public access
+            "BeatImages",
+            trustedFileName
+        );
 
-                await using FileStream fs = new(path, FileMode.Create);
+                await using FileStream fs = new(uploadPath, FileMode.Create);
                 await file.OpenReadStream(maxFileSize).CopyToAsync(fs);
 
                 loadedFiles.Add(file);
 
                 Logger.LogInformation(
-                "Unsafe Filename: {UnsafeFilename} File saved: {Filename}",
-                file.Name, trustedFileName);
+                    "Unsafe Filename: {UnsafeFilename} File saved: {Filename}",
+                    file.Name, trustedFileName);
             }
             catch (Exception ex)
             {
-                Logger.LogError("File: {Filename} Error: {Error}",
-                file.Name, ex.Message);
+                Logger.LogError("File: {Filename} Error: {Error}", 
+                    file.Name, ex.Message);
             }
         }
 
-        isLoading = false;
+        isLoading = false; *@
     }
-
-    void OnProgress(UploadProgressArgs args, string name)
-    {
-        Console.WriteLine($"{args.Progress}% '{name}' / {args.Loaded} of {args.Total} bytes.");
-
-        if (args.Progress == 100)
-        {
-            foreach (var file in args.Files)
-            {
-                Console.WriteLine($"Uploaded: {file.Name} / {file.Size} bytes");
-            }
-        }
-    }
-
 }

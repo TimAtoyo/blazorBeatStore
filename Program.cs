@@ -12,6 +12,10 @@ builder.Services.AddDbContextFactory<BeatStoreDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+
+// Register IWebHostEnvironment (automatically available)
+builder.Services.AddSingleton<IWebHostEnvironment>(sp => sp.GetRequiredService<IWebHostEnvironment>());
+
 // Register Beat service
 builder.Services.AddScoped<IBeatService, BeatService>();
 // Register root path service
