@@ -5,7 +5,8 @@
 @inject ILogger<CreateBeat> Logger
 @inject RootPathService RootPathService
 @rendermode InteractiveServer
-@inject IWebHostEnvironment _webHostEnvironment
+@inject IWebHostEnvironment? _webHostEnvironment
+
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -45,15 +46,15 @@ using Microsoft.Extensions.Hosting;
 
                 <div class="form-group">
                     <label class="mb-2" for="FilePath">Upload Beat</label>
-                    <InputFile OnChange="LoadFiles" multiple />
-                    <InputText id="FilePath" class="form-control" @bind-Value="newBeat.FilePath" />
+                    <InputFile OnChange="LoadBeat" multiple />
+                    <InputText id="FilePath" class="form-control"  @bind-Value="newBeat.FilePath" />
                     <ValidationMessage For="() => newBeat.FilePath" />
                 </div>
 
                 <div class="form-group">
                     <label class="mb-2" for="CoverImagePath">Cover Image Path</label>
                     <InputFile OnChange="LoadFiles" multiple />
-                    <InputText id="CoverImagePath" class="form-control" @bind-Value="newBeat.CoverImagePath" />
+                    <InputText id="CoverImagePath" class="form-control"  @bind-Value="newBeat.CoverImagePath" />
                     <ValidationMessage For="() => newBeat.CoverImagePath" />
                 </div>
                 <p>
@@ -61,7 +62,7 @@ using Microsoft.Extensions.Hosting;
                         Upload up to @maxAllowedFiles of up to @maxFileSize bytes:
                         <InputFile OnChange="LoadFiles" multiple />
                     </label>
-                </p>
+                </p> 
 
 
                 <div class="form-group">
@@ -108,8 +109,11 @@ using Microsoft.Extensions.Hosting;
 @code {
     private Beat newBeat = new Beat();
     private List<IBrowserFile> loadedFiles = [];
-    private long maxFileSize = 1024 * 15;
+    private long maxFileSize = 1024 * 1024 * 15;
     private int maxAllowedFiles = 3;
+
+    private string? uploadPath;
+    private string? forSavingToDbPath;
     private string? RootPath;
     private string? EnvironmentName;
 
@@ -117,37 +121,34 @@ using Microsoft.Extensions.Hosting;
 
     private async Task HandleValidSubmit()
     {
+         newBeat.CoverImagePath = forSavingToDbPath;
+         newBeat.FilePath = forSavingToDbPath;
         // Save the new beat using your service
         await BeatService.CreateBeatAsync(newBeat);
         // Clear the form after submission
         newBeat = new Beat();
 
-        RootPath = RootPathService.GetRootPath();
-        EnvironmentName = RootPathService.GetEnvironmentName();
-
         // navigate back to a beats page
-        Navigation.NavigateTo("/beats", true);
+        Navigation.NavigateTo("/", true);
 
     }
 
-
-    private async Task LoadFiles(InputFileChangeEventArgs e)
+    private async Task LoadBeat(InputFileChangeEventArgs e)
     {
-        @* isLoading = true;
+        isLoading = true;
         loadedFiles.Clear();
         
-
+        
         foreach (var file in e.GetMultipleFiles(maxAllowedFiles))
         {
             try
             {
-        var trustedFileName = Path.GetRandomFileName();
-        var uploadPath = Path.Combine(
-            _webHostEnvironment.ContentRootPath,  // ✅ Corrected property
-            "wwwroot",  // Store inside wwwroot for public access
-            "BeatImages",
-            trustedFileName
-        );
+                var fileExtension = Path.GetExtension(file.Name);
+                var trustedFileName = Path.GetRandomFileName();
+                var finalFileName = Path.ChangeExtension(trustedFileName, fileExtension);
+                 uploadPath = Path.Combine(_webHostEnvironment.WebRootPath, "Beats", finalFileName);
+                 forSavingToDbPath = Path.Combine("/", "Beats", finalFileName);
+
 
                 await using FileStream fs = new(uploadPath, FileMode.Create);
                 await file.OpenReadStream(maxFileSize).CopyToAsync(fs);
@@ -165,6 +166,40 @@ using Microsoft.Extensions.Hosting;
             }
         }
 
-        isLoading = false; *@
+        isLoading = false;
+    }
+    private async Task LoadFiles(InputFileChangeEventArgs e)
+    {
+        isLoading = true;
+        loadedFiles.Clear();
+        
+
+        foreach (var file in e.GetMultipleFiles(maxAllowedFiles))
+        {
+            try
+            {
+                var fileExtension = Path.GetExtension(file.Name);
+                var trustedFileName = Path.GetRandomFileName();
+                var finalFileName = Path.ChangeExtension(trustedFileName, fileExtension);
+                 uploadPath = Path.Combine(_webHostEnvironment.WebRootPath, "BeatImages", finalFileName);
+                forSavingToDbPath = Path.Combine("/", "BeatImages", finalFileName);
+
+                await using FileStream fs = new(uploadPath, FileMode.Create);
+                await file.OpenReadStream(maxFileSize).CopyToAsync(fs);
+
+                loadedFiles.Add(file);
+
+                Logger.LogInformation(
+                    "Unsafe Filename: {UnsafeFilename} File saved: {Filename}",
+                    file.Name, trustedFileName);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError("File: {Filename} Error: {Error}", 
+                    file.Name, ex.Message);
+            }
+        }
+
+        isLoading = false;
     }
 }

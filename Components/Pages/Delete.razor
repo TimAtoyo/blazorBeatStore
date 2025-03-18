@@ -52,7 +52,7 @@
 
 
             </div>
-            <button type="submit" class="btn btn-primary">Create Beat</button>
+            <button type="submit" class="btn btn-primary">Delete</button>
         </EditForm>
     </div>
 
@@ -71,6 +71,6 @@ protected override async Task OnInitializedAsync()
 private async Task HandleDelete()
 {
     await bs.DeleteBeatAsync(id);
-    NM.NavigateTo("/beats");
+    NM.NavigateTo("/");
 }
 }

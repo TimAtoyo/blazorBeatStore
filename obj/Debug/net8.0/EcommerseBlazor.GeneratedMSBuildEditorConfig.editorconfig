@@ -38,10 +38,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9CZWF0cy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/timothyatoyo/Desktop/EcommerseBlazor/Components/Pages/Counter.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9Db3VudGVyLnJhem9y
-build_metadata.AdditionalFiles.CssScope = 
-
 [/Users/timothyatoyo/Desktop/EcommerseBlazor/Components/Pages/CreateBeat.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9DcmVhdGVCZWF0LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
@@ -60,10 +56,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/Users/timothyatoyo/Desktop/EcommerseBlazor/Components/Pages/UpdateBeat.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9VcGRhdGVCZWF0LnJhem9y
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/timothyatoyo/Desktop/EcommerseBlazor/Components/Pages/Weather.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9XZWF0aGVyLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/timothyatoyo/Desktop/EcommerseBlazor/Components/Routes.razor]

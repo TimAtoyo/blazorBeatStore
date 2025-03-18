@@ -13,9 +13,11 @@ builder.Services.AddDbContextFactory<BeatStoreDbContext>(options =>
 });
 
 
+// This gives you IWebHostEnvironment
+var environment = builder.Environment;
 // Register IWebHostEnvironment (automatically available)
-builder.Services.AddSingleton<IWebHostEnvironment>(sp => sp.GetRequiredService<IWebHostEnvironment>());
-
+// Register it for dependency injection
+builder.Services.AddSingleton(environment);
 // Register Beat service
 builder.Services.AddScoped<IBeatService, BeatService>();
 // Register root path service

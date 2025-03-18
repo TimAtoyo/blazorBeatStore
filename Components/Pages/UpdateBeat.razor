@@ -2,14 +2,16 @@
 @inject IBeatService bs
 @inject NavigationManager NM
 @rendermode InteractiveServer
+@inject IWebHostEnvironment? _webHostEnvironment
+@using Microsoft.Extensions.Logging
 @if (beat is null)
 {
  <h1>Something went wrong!</h1>
 }
 else{
 
-        <EditForm class="space-y-9" Model="@beat" FormName="update" OnValidSubmit="HandleValidSubmit">
-            <a href="/beats" class="btn btn-secondary">Back to All Beats</a>
+        <EditForm class="space-y-9 mt-20" Model="@beat" FormName="update" OnValidSubmit="HandleValidSubmit">
+            <a href="/" class="btn btn-secondary">Back to All Beats</a>
             <DataAnnotationsValidator />
             <ValidationSummary />
             <div class="grid grid-cols-2 gap-5">
@@ -54,6 +56,19 @@ else{
                     <InputNumber id="Bpm" class="form-control" @bind-Value="beat.Bpm" />
                     <ValidationMessage For="() => beat.Bpm" />
                 </div>
+                <div class="form-group">
+                    <label class="mb-2" for="FilePath">Upload Beat</label>
+                    <InputFile OnChange="LoadBeat" multiple />
+                    <InputText id="FilePath" class="form-control"   @bind-Value="beat.FilePath" />
+                    <ValidationMessage For="() => beat.FilePath" />
+                </div>
+
+                <div class="form-group">
+                    <label class="mb-2" for="CoverImagePath">Cover Image Path</label>
+                    <InputFile OnChange="LoadCoverImage" multiple />
+                    <InputText id="CoverImagePath" class="form-control"  @bind-Value="beat.CoverImagePath" />
+                    <ValidationMessage For="() => beat.CoverImagePath" />
+                </div>
 
 
             </div>
@@ -66,6 +81,15 @@ else{
 @code {
     [Parameter]
     public int id {get; set;}
+    private List<IBrowserFile> loadedFiles = [];
+    private long maxFileSize = 1024 * 1024 * 15;
+    private int maxAllowedFiles = 3;
+     private bool isLoading = false;
+    private string? uploadPath;
+    private string? savingCoverImagePathToDb;
+    private string? forSavingBeatPathToDb;
+    private string? RootPath;
+    private string? EnvironmentName;
     
     public Beat beat = new Beat();
 
@@ -73,10 +97,79 @@ else{
         beat = await bs.GetBeatByIdAsync(id);
     }
 
+private async Task LoadBeat(InputFileChangeEventArgs e)
+    {
+        isLoading = true;
+        loadedFiles.Clear();
+        
 
+        foreach (var file in e.GetMultipleFiles(maxAllowedFiles))
+        {
+            try
+            {
+                var fileExtension = Path.GetExtension(file.Name);
+                var trustedFileName = Path.GetRandomFileName();
+                var finalFileName = Path.ChangeExtension(trustedFileName, fileExtension);
+                 uploadPath = Path.Combine(_webHostEnvironment.WebRootPath, "Beats", finalFileName);
+                 @* forSavingBeatPathToDb = Path.Combine("/", "Beats", finalFileName); *@
+
+
+                await using FileStream fs = new(uploadPath, FileMode.Create);
+                await file.OpenReadStream(maxFileSize).CopyToAsync(fs);
+                beat.FilePath = $"/BeatImages/{finalFileName}";
+                loadedFiles.Add(file);
+@* 
+                Logger.LogInformation(
+                    "Unsafe Filename: {UnsafeFilename} File saved: {Filename}",
+                    file.Name, trustedFileName); *@
+            }
+            catch (Exception ex)
+            {
+                @* Logger.LogError("File: {Filename} Error: {Error}", 
+                    file.Name, ex.Message); *@
+            }
+        }
+
+        isLoading = false;
+    }
+    private async Task LoadCoverImage(InputFileChangeEventArgs e)
+    {
+        isLoading = true;
+        loadedFiles.Clear();
+        
+
+        foreach (var file in e.GetMultipleFiles(maxAllowedFiles))
+        {
+            try
+            {
+                var fileExtension = Path.GetExtension(file.Name);
+                var trustedFileName = Path.GetRandomFileName();
+                var finalFileName = Path.ChangeExtension(trustedFileName, fileExtension);
+                 uploadPath = Path.Combine(_webHostEnvironment.WebRootPath, "BeatImages", finalFileName);
+
+                await using FileStream fs = new(uploadPath, FileMode.Create);
+                await file.OpenReadStream(maxFileSize).CopyToAsync(fs);
+
+                beat.CoverImagePath = $"/BeatImages/{finalFileName}";
+                loadedFiles.Add(file);
+@* 
+                Logger.LogInformation(
+                    "Unsafe Filename: {UnsafeFilename} File saved: {Filename}",
+                    file.Name, trustedFileName); *@
+            }
+            catch (Exception ex)
+            {
+                @* Logger.LogError("File: {Filename} Error: {Error}", 
+                    file.Name, ex.Message); *@
+            }
+        }
+
+        isLoading = false;
+    }
     public  async Task HandleValidSubmit()
     {
+
         await bs.UpdateBeatAsync(beat);
-         NM.NavigateTo("/beats");
+         NM.NavigateTo("/");
     }
 }

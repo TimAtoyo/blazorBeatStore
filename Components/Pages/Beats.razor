@@ -1,5 +1,5 @@
-@page "/Beats"
-
+@page "/"
+@inject IWebHostEnvironment? _webHostEnvironment
 @inject IBeatService BeatService
 
 <PageTitle>All Beats</PageTitle>
@@ -14,17 +14,22 @@
 else
 {
 
-    <div class=" max-w-full container">
+    <div class=" max-w-full container mt-20">
             
         <div class="grid md:grid-cols-4 gap-5 my-20">
             @foreach (var beat in beats)
             {
                 <div class="beat-card p-6 shadow-md rounded-md grid gap-y-2">
+                    <div class="image">
+                        <img class="w-100 h-auto" src=".@beat.CoverImagePath" />
+                    <img >
+                    </div>
                     <h1 class="text-2xl font-semibold">@beat.Title</h1>
                     <h2>@beat.Description</h2>
                     <h2>Beat Id: <strong> @beat.BeatId</strong></h2>
                     <h2>Price: <strong> @beat.Price</strong></h2>
                     <h2>Uploaded By: @beat.UploadedBy</h2>
+                    <h2>CoverimageUlr: @beat.CoverImagePath</h2>
                     <div class="footer flex justify-between mt-5">
                         <a class="btn btn-primary" href="/Update/@beat.BeatId">Update</a>
                         <a class="btn btn-danger" href="/Delete/@beat.BeatId">Delete</a>
@@ -41,7 +46,8 @@ else
     protected override async Task OnInitializedAsync()
     {
         beats = await BeatService.GetBeatsAsync();
-        Console.WriteLine($"Fetched {beats?.Count()} beats");
+        @* Console.WriteLine($"Fetched {beats?.Count()} beats"); *@
+        Console.WriteLine($"WebRootPath: {_webHostEnvironment.WebRootPath}");
     }
 
 
