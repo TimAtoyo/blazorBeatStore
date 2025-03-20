@@ -9,10 +9,6 @@
       "PackagePath": "staticwebassets/BeatImages/052ylofb.png"
     },
     {
-      "Id": "/Users/timothyatoyo/Desktop/EcommerseBlazor/wwwroot/BeatImages/0senbrhw.png",
-      "PackagePath": "staticwebassets/BeatImages/0senbrhw.png"
-    },
-    {
       "Id": "/Users/timothyatoyo/Desktop/EcommerseBlazor/wwwroot/BeatImages/1p1nx4es.png",
       "PackagePath": "staticwebassets/BeatImages/1p1nx4es.png"
     },
@@ -21,8 +17,12 @@
       "PackagePath": "staticwebassets/BeatImages/1sxxf2cw.png"
     },
     {
-      "Id": "/Users/timothyatoyo/Desktop/EcommerseBlazor/wwwroot/BeatImages/314af798-9330-4fb8-a761-b8388d2b37e7_Screenshot 2024-10-10 at 19.20.10.png",
-      "PackagePath": "staticwebassets/BeatImages/314af798-9330-4fb8-a761-b8388d2b37e7_Screenshot 2024-10-10 at 19.20.10.png"
+      "Id": "/Users/timothyatoyo/Desktop/EcommerseBlazor/wwwroot/BeatImages/2nmiohap.png",
+      "PackagePath": "staticwebassets/BeatImages/2nmiohap.png"
+    },
+    {
+      "Id": "/Users/timothyatoyo/Desktop/EcommerseBlazor/wwwroot/BeatImages/3okhqeg1.jpg",
+      "PackagePath": "staticwebassets/BeatImages/3okhqeg1.jpg"
     },
     {
       "Id": "/Users/timothyatoyo/Desktop/EcommerseBlazor/wwwroot/BeatImages/4jxl4lon.jpeg",
@@ -57,6 +57,10 @@
       "PackagePath": "staticwebassets/BeatImages/j1zrrhpc.png"
     },
     {
+      "Id": "/Users/timothyatoyo/Desktop/EcommerseBlazor/wwwroot/BeatImages/kdlyg0ng.png",
+      "PackagePath": "staticwebassets/BeatImages/kdlyg0ng.png"
+    },
+    {
       "Id": "/Users/timothyatoyo/Desktop/EcommerseBlazor/wwwroot/BeatImages/kjj1cn4p.png",
       "PackagePath": "staticwebassets/BeatImages/kjj1cn4p.png"
     },
@@ -73,8 +77,16 @@
       "PackagePath": "staticwebassets/BeatImages/nejwmahb.png"
     },
     {
+      "Id": "/Users/timothyatoyo/Desktop/EcommerseBlazor/wwwroot/BeatImages/o3kwmn2h.HEIC",
+      "PackagePath": "staticwebassets/BeatImages/o3kwmn2h.HEIC"
+    },
+    {
       "Id": "/Users/timothyatoyo/Desktop/EcommerseBlazor/wwwroot/BeatImages/oduh5kwu.wav",
       "PackagePath": "staticwebassets/BeatImages/oduh5kwu.wav"
+    },
+    {
+      "Id": "/Users/timothyatoyo/Desktop/EcommerseBlazor/wwwroot/BeatImages/r2i21flk.svg",
+      "PackagePath": "staticwebassets/BeatImages/r2i21flk.svg"
     },
     {
       "Id": "/Users/timothyatoyo/Desktop/EcommerseBlazor/wwwroot/BeatImages/sjr1135k.heic",
@@ -95,6 +107,14 @@
     {
       "Id": "/Users/timothyatoyo/Desktop/EcommerseBlazor/wwwroot/BeatImages/v4s2b4fk.png",
       "PackagePath": "staticwebassets/BeatImages/v4s2b4fk.png"
+    },
+    {
+      "Id": "/Users/timothyatoyo/Desktop/EcommerseBlazor/wwwroot/BeatImages/vgmt2l2e.PNG",
+      "PackagePath": "staticwebassets/BeatImages/vgmt2l2e.PNG"
+    },
+    {
+      "Id": "/Users/timothyatoyo/Desktop/EcommerseBlazor/wwwroot/Beats/1xciahgj.PNG",
+      "PackagePath": "staticwebassets/Beats/1xciahgj.PNG"
     },
     {
       "Id": "/Users/timothyatoyo/Desktop/EcommerseBlazor/wwwroot/Beats/3bvh54jj.png",
@@ -133,6 +153,10 @@
       "PackagePath": "staticwebassets/Beats/gsz5rlon.png"
     },
     {
+      "Id": "/Users/timothyatoyo/Desktop/EcommerseBlazor/wwwroot/Beats/h1ndb3v0.mp3",
+      "PackagePath": "staticwebassets/Beats/h1ndb3v0.mp3"
+    },
+    {
       "Id": "/Users/timothyatoyo/Desktop/EcommerseBlazor/wwwroot/Beats/kccd1seh.png",
       "PackagePath": "staticwebassets/Beats/kccd1seh.png"
     },
@@ -141,8 +165,16 @@
       "PackagePath": "staticwebassets/Beats/kcclmlqw.PNG"
     },
     {
+      "Id": "/Users/timothyatoyo/Desktop/EcommerseBlazor/wwwroot/Beats/konatpci.mp3",
+      "PackagePath": "staticwebassets/Beats/konatpci.mp3"
+    },
+    {
       "Id": "/Users/timothyatoyo/Desktop/EcommerseBlazor/wwwroot/Beats/o5wffcr5.png",
       "PackagePath": "staticwebassets/Beats/o5wffcr5.png"
+    },
+    {
+      "Id": "/Users/timothyatoyo/Desktop/EcommerseBlazor/wwwroot/Beats/p24ia3v2.png",
+      "PackagePath": "staticwebassets/Beats/p24ia3v2.png"
     },
     {
       "Id": "/Users/timothyatoyo/Desktop/EcommerseBlazor/wwwroot/Beats/pgfpbkrj.png",
@@ -151,6 +183,10 @@
     {
       "Id": "/Users/timothyatoyo/Desktop/EcommerseBlazor/wwwroot/Beats/pkczw5oy.png",
       "PackagePath": "staticwebassets/Beats/pkczw5oy.png"
+    },
+    {
+      "Id": "/Users/timothyatoyo/Desktop/EcommerseBlazor/wwwroot/Beats/upohuwwe.wav",
+      "PackagePath": "staticwebassets/Beats/upohuwwe.wav"
     },
     {
       "Id": "/Users/timothyatoyo/Desktop/EcommerseBlazor/wwwroot/Beats/wii5dfms.png",
@@ -167,6 +203,10 @@
     {
       "Id": "/Users/timothyatoyo/Desktop/EcommerseBlazor/wwwroot/Beats/z2jgj3sn.jpeg",
       "PackagePath": "staticwebassets/Beats/z2jgj3sn.jpeg"
+    },
+    {
+      "Id": "/Users/timothyatoyo/Desktop/EcommerseBlazor/wwwroot/Javascript/AudioPlayer.js",
+      "PackagePath": "staticwebassets/Javascript/AudioPlayer.js"
     },
     {
       "Id": "/Users/timothyatoyo/Desktop/EcommerseBlazor/wwwroot/app.css",
@@ -187,6 +227,10 @@
     {
       "Id": "/Users/timothyatoyo/Desktop/EcommerseBlazor/wwwroot/output.css",
       "PackagePath": "staticwebassets/output.css"
+    },
+    {
+      "Id": "/Users/timothyatoyo/Desktop/EcommerseBlazor/wwwroot/styles.css",
+      "PackagePath": "staticwebassets/styles.css"
     },
     {
       "Id": "obj/Debug/net8.0/staticwebassets/msbuild.EcommerseBlazor.Microsoft.AspNetCore.StaticWebAssets.props",

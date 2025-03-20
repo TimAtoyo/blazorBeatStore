@@ -1,38 +1,47 @@
 @page "/"
 @inject IWebHostEnvironment? _webHostEnvironment
 @inject IBeatService BeatService
-
 <PageTitle>All Beats</PageTitle>
-
 
 @using Microsoft.EntityFrameworkCore
 
 @if (beats is null)
 {
- <h1>Something went wrong!</h1>
+    <div class="flex items-center justify-center h-screen">
+        <h1 class="text-3xl font-semibold text-red-600">Something went wrong!</h1>
+    </div>
 }
 else
 {
+    <div class="container mx-auto px-4 mt-10">
+        <h1 class="text-4xl font-bold text-center text-gray-800 mb-10">All Beats</h1>
 
-    <div class=" max-w-full container mt-20">
-            
-        <div class="grid md:grid-cols-4 gap-5 my-20">
+        <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             @foreach (var beat in beats)
             {
-                <div class="beat-card p-6 shadow-md rounded-md grid gap-y-2">
-                    <div class="image">
-                        <img class="w-100 h-auto" src=".@beat.CoverImagePath" />
-                    <img >
+                <div class="bg-white rounded-2xl shadow-lg p-5 transition-transform transform hover:scale-105">
+                    <div class="rounded-lg overflow-hidden">
+                        <img class="w-full h-48 object-cover" src="@beat.CoverImagePath" alt="@beat.Title">
                     </div>
-                    <h1 class="text-2xl font-semibold">@beat.Title</h1>
-                    <h2>@beat.Description</h2>
-                    <h2>Beat Id: <strong> @beat.BeatId</strong></h2>
-                    <h2>Price: <strong> @beat.Price</strong></h2>
-                    <h2>Uploaded By: @beat.UploadedBy</h2>
-                    <h2>CoverimageUlr: @beat.CoverImagePath</h2>
-                    <div class="footer flex justify-between mt-5">
-                        <a class="btn btn-primary" href="/Update/@beat.BeatId">Update</a>
-                        <a class="btn btn-danger" href="/Delete/@beat.BeatId">Delete</a>
+                    <div class="rounded-lg">
+                        <Player />
+                    </div>
+                 
+
+                    <div class="mt-4">
+                        <h2 class="text-xl font-semibold text-gray-900">@beat.Title</h2>
+                        <p class="text-gray-600 text-sm">@beat.Description</p>
+                        <p class="text-sm text-gray-500 mt-1">Uploaded By: <span class="font-medium">@beat.UploadedBy</span></p>
+                        <p class="text-lg font-bold text-green-600 mt-2">Price: £@beat.Price</p>
+                    </div>
+
+                    <div class="mt-5 flex justify-between">
+                        <a class="px-4 py-2 bg-blue-500 text-white rounded-lg text-sm font-medium hover:bg-blue-600 transition" href="/Update/@beat.BeatId">
+                            Update
+                        </a>
+                        <a class="px-4 py-2 bg-red-500 text-white rounded-lg text-sm font-medium hover:bg-red-600 transition" href="/Delete/@beat.BeatId">
+                            Delete
+                        </a>
                     </div>
                 </div>
             }
@@ -42,14 +51,10 @@ else
 
 @code {
     private IEnumerable<Beat>? beats;
-    private IList<Beat>? selectedbeats;
+
     protected override async Task OnInitializedAsync()
     {
         beats = await BeatService.GetBeatsAsync();
-        @* Console.WriteLine($"Fetched {beats?.Count()} beats"); *@
         Console.WriteLine($"WebRootPath: {_webHostEnvironment.WebRootPath}");
     }
-
-
-
 }

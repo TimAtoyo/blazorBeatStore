@@ -1,22 +1,48 @@
 ﻿@using Microsoft.AspNetCore.Components.Routing
 @inject NavigationManager Navigation
 
-<div class="">
-    @* [ Home | Browse Beats | Pricing | About | Contact | Sign Up/Login ] *@
-    <div class="w-full justify-between text-white py-9 px-4 bg-black flex fixed">
-        <div class="logo">
-            <h1 class="">
-                <a href="/">Nazarine</a>
-            </h1>
+<nav class="fixed  top-0 w-full bg-gray-900 text-white shadow-md z-50">
+    <div class="container mx-auto flex justify-between items-center py-4 px-6">
+        
+        <!-- Logo -->
+        <div class="text-2xl font-bold">
+            <a href="/">Nazarine</a>
         </div>
-        <div class="nav-links flex gap-3 text-black">
-            <a class="text-white" href="/Beats">Browse Beats</a>
-            <a class="text-white" href="">Pricing</a>
-            <a class="text-white" href="">About</a>
-            <a class="text-white" href="">Contact</a>
-            <a class="text-white" href="">Sign Up/Login</a>
-            <a class="text-white" href="/create-beat">Create A Create</a>
+
+        <!-- Desktop Navigation -->
+        <div class="hidden md:flex space-x-6 text-lg">
+            <a class="nav-link" href="/Beats">Browse Beats</a>
+            <a class="nav-link" href="#">Pricing</a>
+            <a class="nav-link" href="#">About</a>
+            <a class="nav-link" href="#">Contact</a>
+            <a class="nav-link" href="#">Sign Up/Login</a>
+            <a class="nav-link" href="/create-beat">Create A Beat</a>
         </div>
+
+        <!-- Mobile Menu Button -->
+        <button class="md:hidden focus:outline-none" @onclick="ToggleMenu">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+            </svg>
+        </button>
     </div>
 
-</div>
+    <!-- Mobile Navigation -->
+    <div class="md:hidden bg-black text-white  px-6 py-4" style="@(_menuOpen ? "display:block;" : "display:none;")">
+        <a class="block py-2 nav-link" href="/Beats">Browse Beats</a>
+        <a class="block py-2 nav-link" href="#">Pricing</a>
+        <a class="block py-2 nav-link" href="#">About</a>
+        <a class="block py-2 nav-link" href="#">Contact</a>
+        <a class="block py-2 nav-link" href="#">Sign Up/Login</a>
+        <a class="block py-2 nav-link" href="/create-beat">Create A Beat</a>
+    </div>
+</nav>
+
+@code {
+    private bool _menuOpen = false;
+
+    private void ToggleMenu()
+    {
+        _menuOpen = !_menuOpen;
+    }
+}

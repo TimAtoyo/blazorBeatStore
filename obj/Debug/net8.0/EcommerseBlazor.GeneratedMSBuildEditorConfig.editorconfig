@@ -73,3 +73,7 @@ build_metadata.AdditionalFiles.CssScope = b-xhsl6i9ovx
 [/Users/timothyatoyo/Desktop/EcommerseBlazor/Components/Layout/NavMenu.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9MYXlvdXQvTmF2TWVudS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-3mkud66sip
+
+[/Users/timothyatoyo/Desktop/EcommerseBlazor/Components/Pages/Components/Player.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9Db21wb25lbnRzL1BsYXllci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-3a3ymgcuil

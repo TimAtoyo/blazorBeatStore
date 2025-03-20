@@ -170,3 +170,4 @@
 /Users/timothyatoyo/Desktop/EcommerseBlazor/bin/Debug/net8.0/package-lock.json
 /Users/timothyatoyo/Desktop/EcommerseBlazor/bin/Debug/net8.0/Radzen.Blazor.dll
 /Users/timothyatoyo/Desktop/EcommerseBlazor/bin/Debug/net8.0/System.Linq.Dynamic.Core.dll
+/Users/timothyatoyo/Desktop/EcommerseBlazor/obj/Debug/net8.0/scopedcss/Components/Pages/Components/Player.razor.rz.scp.css

@@ -1,0 +1,39 @@
+@page "/player"
+@rendermode InteractiveServer
+
+<section class="grid place-center mt-32">
+
+<div class="relative h-32 play shadow-lg flex rounded-2xl music-container" >
+    <div class="music-info transition-transform ease-in-out duration-300 translate-y-0 opacity-1 top-0 left-5 px-2 py-2 absolute w-[calc(100%-40px)] bg-[#cb7f7f] bg-opacity-50  rounded-t-2xl">
+        <div class="text-black text-center text-[0.9rem]" id="title">Testing song</div>
+        <div id="progress-container">
+            <div class="progress bg-white w-full h-1 my-2 rounded-full cursor-pointer"></div>
+        </div>
+    </div>
+@* <audio controls="controls">
+  <source src="song.ogg" type="audio/ogg" />
+  <source src="song.mp3" type="audio/mpeg" />
+</audio> *@
+    <div class="image-container">
+        <img class="w-10 h-10 z-10 rounded-full object-cover absolute bottom-0 left-0" src="/BeatImages/am4fpcen.png" alt=""/>
+    </div>
+    <div class="navigation rounded-2xl px-6 relative w-full bg-slate-100 flex justify-between items-center z-[1]">
+        <button id="prev" class="action-button rounded-full bg-white grid justify-between content-center">
+<span class="material-symbols-outlined border-0 text-[#dbdbdf] focus:outline-none">
+arrow_circle_left
+</span>
+        </button>
+        <button id="play" class="action-button rounded-full bg-white grid justify-between content-center ">
+            <span class="material-symbols-outlined border-0 text-3xl text-gray-500 focus:outline-none">
+            play_circle
+            </span>
+        </button>
+        <button id="next" class="action-button rounded-full bg-white grid justify-between content-center">
+<span class="material-symbols-outlined border-0  text-[#dbdbdf] focus:outline-none">
+arrow_circle_right
+</span>
+        </button>
+    </div>
+</div>
+
+</section>

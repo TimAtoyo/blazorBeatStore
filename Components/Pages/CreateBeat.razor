@@ -13,82 +13,89 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
 <h3>Create a New Beat</h3>
 
-<div class="container my-10">
-    <div class="row">
-        <EditForm class="space-y-9" Model="newBeat" OnValidSubmit="HandleValidSubmit">
+<h3 class="text-3xl font-semibold mb-8 text-center">Create a New Beat</h3>
+
+<div class="container mx-auto px-4 mt-20">
+    <div class="max-w-3xl mx-auto">
+        <EditForm class="space-y-6" Model="newBeat" OnValidSubmit="HandleValidSubmit">
             <DataAnnotationsValidator />
-            <ValidationSummary />
-            <div class="grid grid-cols-2 gap-5">
+            <ValidationSummary class="text-red-500" />
 
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <!-- Title -->
                 <div class="form-group">
-                    <label class="mb-2" for="Title">Title</label>
-                    <InputText id="Title" class="form-control" @bind-Value="newBeat.Title" />
-                    <ValidationMessage For="() => newBeat.Title" />
+                    <label class="block mb-2 text-sm font-medium" for="Title">Title</label>
+                    <InputText id="Title" class="form-input w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" @bind-Value="newBeat.Title" />
+                    <ValidationMessage For="() => newBeat.Title" class="text-red-500 text-sm mt-1" />
                 </div>
 
+                <!-- Description -->
                 <div class="form-group">
-                    <label class="mb-2" for="Description">Description</label>
-                    <InputText id="Description" class="form-control" @bind-Value="newBeat.Description" />
-                    <ValidationMessage For="() => newBeat.Description" />
+                    <label class="block mb-2 text-sm font-medium" for="Description">Description</label>
+                    <InputText id="Description" class="form-input w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" @bind-Value="newBeat.Description" />
+                    <ValidationMessage For="() => newBeat.Description" class="text-red-500 text-sm mt-1" />
                 </div>
 
+                <!-- Genre -->
                 <div class="form-group">
-                    <label class="mb-2" for="Genre">Genre</label>
-                    <InputText id="Genre" class="form-control" @bind-Value="newBeat.Genre" />
-                    <ValidationMessage For="() => newBeat.Genre" />
+                    <label class="block mb-2 text-sm font-medium" for="Genre">Genre</label>
+                    <InputText id="Genre" class="form-input w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" @bind-Value="newBeat.Genre" />
+                    <ValidationMessage For="() => newBeat.Genre" class="text-red-500 text-sm mt-1" />
                 </div>
 
+                <!-- Price -->
                 <div class="form-group">
-                    <label class="mb-2" for="Price">Price</label>
-                    <InputNumber id="Price" class="form-control" @bind-Value="newBeat.Price" />
-                    <ValidationMessage For="() => newBeat.Price" />
+                    <label class="block mb-2 text-sm font-medium" for="Price">Price</label>
+                    <InputNumber id="Price" class="form-input w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" @bind-Value="newBeat.Price" />
+                    <ValidationMessage For="() => newBeat.Price" class="text-red-500 text-sm mt-1" />
                 </div>
 
+                <!-- File Upload: Beat -->
                 <div class="form-group">
-                    <label class="mb-2" for="FilePath">Upload Beat</label>
-                    <InputFile OnChange="LoadBeat" multiple />
-                    <InputText id="FilePath" class="form-control"  @bind-Value="newBeat.FilePath" />
-                    <ValidationMessage For="() => newBeat.FilePath" />
+                    <label class="block mb-2 text-sm font-medium" for="FilePath">Upload Beat</label>
+                    <InputFile OnChange="LoadBeat" multiple class="block w-full text-sm text-gray-700 bg-gray-200 border border-gray-300 rounded-md py-2 px-4 cursor-pointer" />
+                    <InputText id="FilePath" class="form-input w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" @bind-Value="newBeat.FilePath" />
+                    <ValidationMessage For="() => newBeat.FilePath" class="text-red-500 text-sm mt-1" />
                 </div>
 
+                <!-- File Upload: Cover Image -->
                 <div class="form-group">
-                    <label class="mb-2" for="CoverImagePath">Cover Image Path</label>
-                    <InputFile OnChange="LoadFiles" multiple />
-                    <InputText id="CoverImagePath" class="form-control"  @bind-Value="newBeat.CoverImagePath" />
-                    <ValidationMessage For="() => newBeat.CoverImagePath" />
-                </div>
-                <p>
-                    <label>
-                        Upload up to @maxAllowedFiles of up to @maxFileSize bytes:
-                        <InputFile OnChange="LoadFiles" multiple />
-                    </label>
-                </p> 
-
-
-                <div class="form-group">
-                    <label class="mb-2" for="UploadedBy">UploadedBy</label>
-                    <InputNumber id="UploadedBy" class="form-control" @bind-Value="newBeat.UploadedBy" />
-                    <ValidationMessage For="() => newBeat.UploadedBy" />
+                    <label class="block mb-2 text-sm font-medium" for="CoverImagePath">Cover Image</label>
+                    <InputFile OnChange="LoadFiles" multiple class="block w-full text-sm text-gray-700 bg-gray-200 border border-gray-300 rounded-md py-2 px-4 cursor-pointer" />
+                    <InputText id="CoverImagePath" class="form-input w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" @bind-Value="newBeat.CoverImagePath" />
+                    <ValidationMessage For="() => newBeat.CoverImagePath" class="text-red-500 text-sm mt-1" />
                 </div>
 
+                <!-- Uploaded By -->
                 <div class="form-group">
-                    <label class="mb-2" for="GenreId">Genre Id</label>
-                    <InputNumber id="GenreId" class="form-control" @bind-Value="newBeat.GenreId" />
-                    <ValidationMessage For="() => newBeat.GenreId" />
+                    <label class="block mb-2 text-sm font-medium" for="UploadedBy">Uploaded By</label>
+                    <InputNumber id="UploadedBy" class="form-input w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" @bind-Value="newBeat.UploadedBy" />
+                    <ValidationMessage For="() => newBeat.UploadedBy" class="text-red-500 text-sm mt-1" />
                 </div>
 
+                <!-- Genre ID -->
                 <div class="form-group">
-                    <label class="mb-2" for="Bpm">Bpm</label>
-                    <InputNumber id="Bpm" class="form-control" @bind-Value="newBeat.Bpm" />
-                    <ValidationMessage For="() => newBeat.Bpm" />
+                    <label class="block mb-2 text-sm font-medium" for="GenreId">Genre Id</label>
+                    <InputNumber id="GenreId" class="form-input w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" @bind-Value="newBeat.GenreId" />
+                    <ValidationMessage For="() => newBeat.GenreId" class="text-red-500 text-sm mt-1" />
                 </div>
 
-
+                <!-- Bpm -->
+                <div class="form-group">
+                    <label class="block mb-2 text-sm font-medium" for="Bpm">Bpm</label>
+                    <InputNumber id="Bpm" class="form-input w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" @bind-Value="newBeat.Bpm" />
+                    <ValidationMessage For="() => newBeat.Bpm" class="text-red-500 text-sm mt-1" />
+                </div>
+            <!-- Submit Button -->
+            <div class=" pt-8">
+                <button type="submit" class="btn btn-primary px-6 py-3 rounded-lg bg-indigo-600 text-white font-semibold hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-300 ease-in-out">
+                    Create Beat
+                </button>
             </div>
-            <button type="submit" class="btn btn-primary">Create Beat</button>
+            </div>
+
         </EditForm>
     </div>
-
 </div>
 
 <style>
